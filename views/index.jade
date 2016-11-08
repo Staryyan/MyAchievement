@@ -6,17 +6,18 @@ html
     link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
   body.login-body
     div.container
-      form#login_form.form-signin(method='POST')
+      form#login_form.form-signin
         div.form-signin-heading.text-center
           h1.sign-title Sign In
           p.text-center Welcome to My-Achievement!
         div.login-wrap
           input#id.form-control(type='text' placeholder="User ID" autofocus='autofocus')
           input#password.form-control(type='password' placeholder='Password')
-          button.btn.btn-lg.btn-login.btn-block(type='submit')
+          button.btn.btn-lg.btn-login.btn-block#login(type='button')
             i.fa.fa-check
           span.pull-right
             a(data-toggle='modal' href='#findPassword') Forgot Password?
+      form#findPassword_form
         div#findPassword.modal.fade(aria-hidden='true' aria-labelledby='findPasswordLabel' role='dialog' tabindex='-1')
           div.modal-dialog
             div.modal-content

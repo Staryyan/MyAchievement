@@ -2,7 +2,7 @@
  * Created by yanzexin on 16/11/8.
  */
 $(document).ready(function () {
-    $('#login_form').bind('submit', function () {
+    $('#login').bind('click', function () {
         var params = {
             id: $('#id').val(),
             password: $('#password').val()
@@ -13,8 +13,12 @@ $(document).ready(function () {
             type:'POST',
             async:false,
             success: function (data) {
-                alert(data['success']);
-                // console.log(data);
+                if (data['success']) {
+                    alert(data['userName']);
+                    window.location  = 'main?userName='+data['userName'];
+                } else {
+                    alert('wrong');
+                }
             },
             error: function (error) {
                 console.log(error);
