@@ -1,9 +1,0 @@
-{
-  "name": "MyAchievement",
-  "version": "0.0.0",
-  "description": "Simple homework management website",
-  "dependencies": {
-    "socket.io": "latest",
-    "mime": "latest"
-  }
-}
