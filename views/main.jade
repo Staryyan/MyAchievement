@@ -4,14 +4,19 @@ doctype html
 html
     head
         title Main
-        //link(href="javascripts/template/iCheck/skins/minimal/minimal.css" rel='stylesheet')
-        //link(href="javascripts/template/iCheck/skins/square/square.css" rel='stylesheet')
-        //link(href="javascripts/template/iCheck/skins/square/red.css" rel='stylesheet')
-        //link(href="javascripts/template/iCheck/skins/square/blue.css" rel='stylesheet')
-        //link(href="stylesheets/template/clndr.css" rel='stylesheet')
-        //link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
+
+        link(href="javascripts/template/iCheck/skins/minimal/minimal.css" rel='stylesheet')
+        link(href="javascripts/template/iCheck/skins/square/square.css" rel='stylesheet')
+        link(href="javascripts/template/iCheck/skins/square/red.css" rel='stylesheet')
+        link(href="javascripts/template/iCheck/skins/square/blue.css" rel='stylesheet')
+
+        link(href="stylesheets/template/clndr.css" rel='stylesheet')
+
+        link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
+
         link(href='/stylesheets/template/style.css' rel='stylesheet')
         link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
+        link(href='/stylesheets/style.css' rel='stylesheet')
     body
         section
             div.left-side.sticky-left-side
@@ -73,12 +78,32 @@ html
                                         a(href='/')
                                             i.fa.fa-sign-out
                                             label Log Out
-                footer 2016 @ Created By Stary.
+                div.wrapper
+                    div.row
+                        div.col-md-8
+                            dic.panel
+                                div.panel-body
+                                    div.row.revenue-states
+                                        div.col-md-6.col-sm-6.col-xs-12
+                                            h4 Scores
+                                    div.row
+                                        div.col-md-12
+                                            div#main-chart
+                                                div#main-chart-score.main-chart
+                    footer 2016 @ Created By Stary.
     script(src='/javascripts/template/jquery-1.10.2.min.js')
     script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
     script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')
     script(src='/javascripts/template/bootstrap.min.js')
     script(src='/javascripts/template/modernizr.min.js')
     script(src='/javascripts/template/jquery.nicescroll.js')
+
+
+    script(src='/javascripts/template/flot-chart/jquery.flot.js')
+    script(src='/javascripts/template/flot-chart/jquery.flot.tooltip.js')
+    script(src='/javascripts/template/flot-chart/jquery.flot.resize.js')
+
+    script(src='/javascripts/template/morris-chart/raphael-min.js')
+    script(src='/javascripts/template/morris-chart/morris.js')
     script(src='/javascripts/template/scripts.js')
     script(src='/javascripts/template/dashboard-chart-init.js')
