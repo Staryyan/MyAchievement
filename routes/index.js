@@ -3,27 +3,38 @@ var router = express.Router();
 var DB = require('../bin/util/DB');
 var db = new DB();
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log('login!');
+router.get('/', function(req, res) {
+  res.clearCookie('user');
   res.render('index');
 });
 
-  router.post('/login', function (req, res) {
-    console.log('login!');
-    db.Database.query('select * from Users where id = ? and password = ?', 
-        [req.body.id, req.body.password], function (err, data) {
-          if (err) console.log(err);
-          if (data.toString() != '') {
-            res.json({'success': true, 'user': data[0]});
+router.post('/login', function (req, res) {
+  console.log('login!');
+  db.Database.query('select * from Users where id = ?', 
+      [req.body.id], function (err, data) {
+        var info = {};
+        if (err) console.log(err);
+        if (data.toString() != '') {
+          if (data[0]['password'] == req.body.password) {
+            res.cookie('user', {id: data[0]['id'], name: data[0]['name']}, { httpOnly:true});
+            info['success'] = true;
           } else {
-            res.json({'success': false});
+            info['success'] = false;
+            info['reason'] = 'Wrong Password';
           }
-        });
-  });
+        } else {
+          info['success'] = false;
+          info['reason'] = 'Wrong Id';
+        }
+        res.json(info);
+      });
+});
 
 router.get('/main', function (req, res) {
   console.log('main');
-  res.render('main');
+  res.render('main', {
+    name: req.cookies.user.name
+  });
 });
 
 module.exports = router;

@@ -15,11 +15,8 @@ $(document).ready(function () {
             success: function (data) {
                 if (data['success']) {
                     window.location.href = '/main';
-                    // $.post('/main', {id: data['user']['id'], name: data['user']['name']}, function () {
-                    //     alert('fuck!');
-                    // });
                 } else {
-                    alert(data['success']);
+                    $('#reason').html(data['reason']);
                 }
             },
             error: function (error) {
