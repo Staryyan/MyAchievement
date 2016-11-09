@@ -12,13 +12,9 @@ html
         //link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
         link(href='/stylesheets/template/style.css' rel='stylesheet')
         link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
-
     body
         section
             div.left-side.sticky-left-side
-                div.logo
-                    a(href='/main')
-                        img(src='' alt='logo')
                 div.left-side-inner
                     ul.nav.nav-pills.nav-stacked.custom-nav
                         li.active
@@ -62,7 +58,7 @@ html
                                 div.dropdown-menu.dropdown-menu-head.pull-right
                                     h5.title Notifications
                             li
-                                a.btn.btn-default.dropdown-toggle(href='' data-toggle='dropdown') #{userName}
+                                a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown')
                                     span.caret
                                 ul.dropdown-menu.dropdown-menu-usermenu.pull-right
                                     li

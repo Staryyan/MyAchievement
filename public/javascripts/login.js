@@ -14,10 +14,12 @@ $(document).ready(function () {
             async:false,
             success: function (data) {
                 if (data['success']) {
-                    alert(data['userName']);
-                    window.location  = 'main?userName='+data['userName'];
+                    window.location.href = '/main';
+                    // $.post('/main', {id: data['user']['id'], name: data['user']['name']}, function () {
+                    //     alert('fuck!');
+                    // });
                 } else {
-                    alert('wrong');
+                    alert(data['success']);
                 }
             },
             error: function (error) {
