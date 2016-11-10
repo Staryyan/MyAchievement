@@ -9,7 +9,9 @@ function DB() {
         password: '161518324',
         database: 'MA'
     });
-    this.Database.connect();    
+    this.Database.connect();
+    // this.Database.query('create table ')
 }
+
 
 module.exports = DB;

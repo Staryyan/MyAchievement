@@ -63,7 +63,7 @@ html
                                 div.dropdown-menu.dropdown-menu-head.pull-right
                                     h5.title Notifications
                             li
-                                a.btn.btn-default.dropdown-toggle(href='' data-toggle='dropdown') #{name}
+                                a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown') #{name}
                                     span.caret
                                 ul.dropdown-menu.dropdown-menu-usermenu.pull-right
                                     li
@@ -80,7 +80,7 @@ html
                                             label Log Out
                 div.wrapper
                     div.row
-                        div.col-md-8
+                        div.col-md-14
                             dic.panel
                                 div.panel-body
                                     div.row.revenue-states
@@ -88,8 +88,17 @@ html
                                             h4 Scores
                                     div.row
                                         div.col-md-12
-                                            div#main-chart
+                                            div#main-chart-1
                                                 div#main-chart-score.main-chart
+                                div.panel-body
+                                    div.row.revenue-states
+                                        div.col-md-6.col-sm-6.col-xs-12
+                                            h4 Rank
+                                    div.row
+                                        div.col-md-12
+                                            div#main-chart-2
+                                                div#main-chart-rank.main-chart
+
                     footer 2016 @ Created By Stary.
     script(src='/javascripts/template/jquery-1.10.2.min.js')
     script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
@@ -106,4 +115,4 @@ html
     script(src='/javascripts/template/morris-chart/raphael-min.js')
     script(src='/javascripts/template/morris-chart/morris.js')
     script(src='/javascripts/template/scripts.js')
-    script(src='/javascripts/template/dashboard-chart-init.js')
+    script(src='/javascripts/home.js')
