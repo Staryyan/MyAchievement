@@ -17,6 +17,7 @@ $(document).ready(function () {
             success: function (data) {
                 for (var index in data['mail']) {
                     var a = $('<a></a>');
+                    a.attr('href', '/user/mail_detail?id=' + data['mail'][index]['id']);
                     a.append($('<small></small>').addClass('pull-right').addClass('text-muted').html(data['mail'][index]['date']));
                     a.append($('<strong></strong>').html("From: " + data['mail'][index]['sender']));
                     a.append($('<br/>'));

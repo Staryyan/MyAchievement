@@ -1,11 +1,10 @@
 //
-   Created by yanzexin on 16/11/8.
+   Created by yanzexin on 16/11/12.
 doctype html
 html
     head
         title Main
 
-        link(href='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.css' rel='stylesheet')
         link(href='/stylesheets/template/style.css' rel='stylesheet')
         link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
         link(href='/stylesheets/style.css' rel='stylesheet')
@@ -73,26 +72,29 @@ html
                         section.mail-box-info
                             header.header
                                 div.compose-btn.pull-right
-                                    button.btn.btn-primary.btn-sm#send
-                                        i.fa.fa-check
-                                        label Send
-                                    button.btn.btn-sm.btn-default
-                                        i.fa.fa-times
-                                        label Discard
+                                    a.btn.btn-sm.btn-primary(href='/mail_compose')
+                                        i.fa.fa-reply
+                                        label Reply
+                                    button(title='' data-placement='top' data-toggle='tooltip' data-original-title='Trash').btn.btn-default.btn-sm.tooltips
+                                        i.fa.fa-trash-o
                                 div.btn-toolbar
-                                    h4.pull-left Compose Mail
+                                    h4.pull-left=subject
                             section.mail-list
-                                div.compose-mail
-                                    form(role='form-horizontal' method='POST')
-                                        div.form-group
-                                            label(for='to') To:
-                                            input#to(type='text' tabindex='1').form-control
-                                        div.form-group
-                                            label(for='subject') Subject:
-                                            input#subject(type='text' tabindex='1').form-control
-                                        label#error
-                                        div.compose-editor
-                                            textarea.wysihtml5.form-control(rows="9")#content
+                                div.mail-sender
+                                    div.row
+                                        div.col-md-8
+                                            strong Author: #{author}
+                                        div.col-md-4
+                                            p.date Date: #{date}
+                                div.view-mail
+                                    p=content
+                                div.compose-btn.pull-left
+                                    a(href='/mail_compose').btn.btn-sm.btn-primary
+                                        i.fa.fa-reply
+                                        label Reply
+                                    button.btn.btn-sm.btn-default.tooltips(title='' data-placement='top' data-toggle='tooltip' data-original-title='Trash')
+                                        i.fa.fa-trash-o
+
 
                     footer 2016 @ Created By Stary.
     script(src='/javascripts/template/jquery-1.10.2.min.js')
@@ -103,9 +105,6 @@ html
     script(src='/javascripts/template/jquery.nicescroll.js')
 
 
-    script(src='/javascripts/template/bootstrap-wysihtml5/wysihtml5-0.3.0.js')
-    script(src='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.js')
     script(src='/javascripts/template/scripts.js')
 
     script(src='/javascripts/navInfo.js')
-    script(src='/javascripts/mail_compose.js')
