@@ -19,8 +19,5 @@ a {
 .panel-body {
   background-color: white;
   border-radius: 10px;
-  width: 48%;
-  display: block;
-  float: left;
   margin: 10px;
 }

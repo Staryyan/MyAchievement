@@ -5,15 +5,7 @@ html
     head
         title Main
 
-        link(href="javascripts/template/iCheck/skins/minimal/minimal.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/square.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/red.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/blue.css" rel='stylesheet')
-
-        link(href="stylesheets/template/clndr.css" rel='stylesheet')
-
-        link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
-
+        link(href='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.css' rel='stylesheet')
         link(href='/stylesheets/template/style.css' rel='stylesheet')
         link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
         link(href='/stylesheets/style.css' rel='stylesheet')
@@ -22,15 +14,15 @@ html
             div.left-side.sticky-left-side
                 div.left-side-inner
                     ul.nav.nav-pills.nav-stacked.custom-nav
-                        li
+                        li.active
                             a(href='/main')
                                 i.fa.fa-home
                                 span Home
-                        li
+                        li.menu-list
                             a(href='')
                                 i.fa.fa-bullhorn
                                 span Notification
-                        li
+                        li.menu-list
                             a(href='')
                                 i.fa.fa-th-list
                                 span Homework
@@ -38,11 +30,6 @@ html
                             a(href='')
                                 i.fa.fa-envelope
                                 span Chat
-                            ul.sub-menu-list
-                                li
-                                    a(href='/mail_view') Mail Box
-                                li
-                                    a(href='/mail_compose') Compose Mail
                         li
                             a(href='/')
                                 i.fa.fa-sign-in
@@ -82,25 +69,29 @@ html
                                             i.fa.fa-sign-out
                                             label Log Out
                 div.wrapper
-                    div.row
-                        div.col-md-14
-                            dic.panel
-                                div.panel-body
-                                    div.row.revenue-states
-                                        div.col-md-6.col-sm-6.col-xs-12
-                                            h4 Scores
-                                    div.row
-                                        div.col-md-12
-                                            div#main-chart-1
-                                                div#main-chart-score.main-chart
-                                //div.panel-body
-                                    //div.row.revenue-states
-                                    //    div.col-md-6.col-sm-6.col-xs-12
-                                    //        h4 Rank
-                                    //div.row
-                                    //    div.col-md-12
-                                    //        div#main-chart-2
-                                    //            div#main-chart-rank.main-chart
+                    div.mail-box
+                        section.mail-box-info
+                            header.header
+                                div.compose-btn.pull-right
+                                    button.btn.btn-primary.btn-sm
+                                        i.fa.fa-check
+                                        label Send
+                                    button.btn.btn-sm.btn-default
+                                        i.fa.fa-times
+                                        label Discard
+                                div.btn-toolbar
+                                    h4.pull-left Compose Mail
+                            section.mail-list
+                                div.compose-mail
+                                    form(role='form-horizontal' method='POST')
+                                        div.form-group
+                                            label(for='to') To:
+                                            input#to(type='text' tabindex='1').form-control
+                                        div.form-group
+                                            label(for='subject') Subject:
+                                            input#subject(type='text' tabindex='1').form-control
+                                        div.compose-editor
+                                            textarea.wysihtml5.form-control(rows="9")
 
                     footer 2016 @ Created By Stary.
     script(src='/javascripts/template/jquery-1.10.2.min.js')
@@ -111,12 +102,9 @@ html
     script(src='/javascripts/template/jquery.nicescroll.js')
 
 
-    script(src='/javascripts/template/flot-chart/jquery.flot.js')
-    script(src='/javascripts/template/flot-chart/jquery.flot.tooltip.js')
-    script(src='/javascripts/template/flot-chart/jquery.flot.resize.js')
-
-    script(src='/javascripts/template/morris-chart/raphael-min.js')
-    script(src='/javascripts/template/morris-chart/morris.js')
+    script(src='/javascripts/template/bootstrap-wysihtml5/wysihtml5-0.3.0.js')
+    script(src='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.js')
     script(src='/javascripts/template/scripts.js')
+
     script(src='/javascripts/navInfo.js')
-    script(src='/javascripts/home.js')
+    script(src='/javascripts/compose_mail.js')

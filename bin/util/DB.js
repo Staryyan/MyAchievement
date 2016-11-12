@@ -10,8 +10,6 @@ function DB() {
         database: 'MA'
     });
     this.Database.connect();
-    // this.Database.query('create table ')
 }
-
 
 module.exports = DB;

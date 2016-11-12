@@ -6,5 +6,8 @@ var User = function (id, password, name, email) {
     this.password = password;
     this.name = name;
     this.email = email;
+    this.notification = [];
+    this.score = [];
 };
+
 module.exports = User;

@@ -37,4 +37,18 @@ router.get('/main', function (req, res) {
   });
 });
 
+router.get('/mail_view', function (request, response) {
+    console.log('mail_view');
+    response.render('mail_view', {
+        name: request.cookies.user.name
+    });
+});
+
+router.get('/mail_compose', function (request, response) {
+    console.log('mail_compose');
+    response.render('mail_compose', {
+        name: request.cookies.user.name
+    });
+});
+
 module.exports = router;
