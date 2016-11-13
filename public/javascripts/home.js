@@ -26,6 +26,7 @@ $(document).ready(function() {
         this.load();
     };
 
+
     plot.prototype.load = function () {
         var that = this;
         $.ajax({
@@ -106,6 +107,8 @@ $(document).ready(function() {
         };
         $.plot($("#main-chart-1 #main-chart-score"), data, options);
     };
+    
+    
     
     $(new plot());
 });

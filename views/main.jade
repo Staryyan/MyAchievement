@@ -93,6 +93,32 @@ html
                                         div.col-md-12
                                             div#main-chart-1
                                                 div#main-chart-score.main-chart
+                    .row
+                        .col-md-3
+                            .panel.panel-primary
+                                .panel-heading
+                                    | Homework 1
+                                    span.tools.pull-right
+                                        a.fa.fa-chevron-down(href='javascript:;')
+                                .panel-body
+                                    h4(style='color: red') 未结束
+                                    h4 Score: {Score}
+                                    h4 Rank: {Rank}
+                                    a.btn.btn-success(data-toggle='modal', href='#Upload') Upload
+                                    a.btn.btn-default(data-toggle='modal', href='/user/download') Download
+
+
+                    #Upload.modal.fade(aria-hidden='true', aria-labelledby='myModalLabel', role='dialog', tabindex='-1')
+                        .modal-dialog
+                            .modal-content
+                                .modal-header
+                                    h4.modal-title Upload Homework
+                                .modal-body
+                                    section.panel
+                                        .panel-body
+                                            form#file(action='/user/upload' enctype='multipart/form-data' method='POST')
+                                                input(type='file' name='files')
+                                                button.btn.btn-primary(type='submit') Submit
                                 //div.panel-body
                                     //div.row.revenue-states
                                     //    div.col-md-6.col-sm-6.col-xs-12
@@ -117,6 +143,8 @@ html
 
     script(src='/javascripts/template/morris-chart/raphael-min.js')
     script(src='/javascripts/template/morris-chart/morris.js')
+
     script(src='/javascripts/template/scripts.js')
+
     script(src='/javascripts/navInfo.js')
     script(src='/javascripts/home.js')

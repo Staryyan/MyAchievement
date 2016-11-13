@@ -29,3 +29,16 @@ a {
 #error {
   color: red;
 }
+.homework-panel {
+  display: block;
+  width: 900px;
+  height: 400px;
+  background-color: red;
+}
+
+.block {
+  display: block;
+  width: 900px;
+  height: 400px;
+  float: left;
+}

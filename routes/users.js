@@ -4,6 +4,8 @@ var DB = require('../bin/util/DB');
 var db = new DB();
 var GetDate = require('../bin/util/Date');
 var date = new GetDate();
+var formidable = require('formidable');
+var fs = require('fs');
 
 /* GET users listing. */
 router.post('/notification', function(request, response) {
@@ -35,29 +37,11 @@ router.post('/notification', function(request, response) {
 });
 
 router.post('/mail', function (request, response) {
-  db.Database.query('select * from Users where name = ?', [request.body.name], function (err, data) {
+  console.log('mail');
+  db.Database.query('select * from Mails where receiver = ? and hasRead = ?', [request.body.name, 0], function (err, data) {
     if (err) console.log(err);
     else {
-      var list = JSON.parse(data[0]['mail']);
-      var mail_ids = [];
-      for (var index in list) {
-        if (!list[index]['read']) { mail_ids.push(list[index]['id']) }
-      }
-      db.Database.query('select * from Mails', function (err, data) {
-        if (err) console.log(err);
-        else {
-          var mails = [];
-          for (var i in mail_ids) {
-            for (var j in data) {
-              if (data[j]['id'] == mail_ids[i]) {
-                mails.push(data[j]);
-                break;
-              }
-            }
-          }
-          response.json({mail: mails});
-        }
-      });
+      response.json({mail: JSON.parse(JSON.stringify(data))});
     }
   });
 });
@@ -125,6 +109,65 @@ router.post('/checkReceiver', function (request, response) {
         response.json({success: false});
       } else {
         response.json({success: true});
+      }
+    }
+  })
+});
+
+router.post('/deleteMail', function (request, response) {
+  db.Database.query('delete from Mails where id = ?', [request.body.id], function (err, data) {
+    if (err) {
+      console.log(err);
+      response.json({success: false, error: err});
+    } else {
+      response.json({success: true});
+    }
+  });
+});
+
+router.post('/upload', function (request, response) {
+  var form = new formidable.IncomingForm();
+  form._encoding = 'utf-8';
+  form.uploadDir = 'public/files/Homework1/';
+  form.keepExtensions = true;
+  form.hash = false;
+  form.maxFieldsSize = 10 * 1024 * 1024;
+  form.maxFilesize = 1;
+
+  form.parse(request, function (err, field, files) {
+    var fileName = files['files']['path'];
+    db.Database.query('select * from Homework1 where author = ?', [request.cookies.user.name], function (err, data) {
+      if (err) {console.log(err)}
+      else {
+        if (data.length > 0) {
+          fs.unlink(data[0]['hash']);
+          db.Database.query('update Homework1 set hash = ? where author = ?', [fileName, request.cookies.user.name], function (err, data) {
+            if (err) {console.log(err)}
+            else {
+              response.redirect('/main');
+            }
+          })
+        } else {
+          db.Database.query('insert into Homework1 (author, hash) values(?,?)', [request.cookies.user.name ,fileName], function (err, data) {
+            if (err) console.log(err);
+            else {
+              response.redirect('/main');
+            }
+          });
+        }
+      }
+    });
+  });
+});
+
+router.get('/download', function (request, response) {
+  db.Database.query('select * from Homework1 where author = ?', [request.cookies.user.name], function (err, data) {
+    if (err) {console.log(err)}
+    else {
+      if (data.length > 0) {
+        var path = data[0]['hash'];
+        var type = path.split('.');
+        response.download(path, 'Homework1 '+request.cookies.user.name + '.' + type[type.length - 1]);
       }
     }
   })

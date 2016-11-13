@@ -71,12 +71,6 @@ html
                     div.mail-box
                         section.mail-box-info
                             header.header
-                                div.compose-btn.pull-right
-                                    a.btn.btn-sm.btn-primary(href='/mail_compose')
-                                        i.fa.fa-reply
-                                        label Reply
-                                    button(title='' data-placement='top' data-toggle='tooltip' data-original-title='Trash').btn.btn-default.btn-sm.tooltips
-                                        i.fa.fa-trash-o
                                 div.btn-toolbar
                                     h4.pull-left=subject
                             section.mail-list
@@ -87,12 +81,13 @@ html
                                         div.col-md-4
                                             p.date Date: #{date}
                                 div.view-mail
-                                    p=content
+                                    p#content_help(hidden) #{content}
+                                    p#content
                                 div.compose-btn.pull-left
                                     a(href='/mail_compose').btn.btn-sm.btn-primary
                                         i.fa.fa-reply
                                         label Reply
-                                    button.btn.btn-sm.btn-default.tooltips(title='' data-placement='top' data-toggle='tooltip' data-original-title='Trash')
+                                    button#trash.btn.btn-sm.btn-default.tooltips(title='' data-placement='top' data-toggle='tooltip' data-original-title='Trash')
                                         i.fa.fa-trash-o
 
 
@@ -108,3 +103,4 @@ html
     script(src='/javascripts/template/scripts.js')
 
     script(src='/javascripts/navInfo.js')
+    script(src='/javascripts/mail_detail_js.js')
