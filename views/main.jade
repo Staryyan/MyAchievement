@@ -1,134 +1,55 @@
-//
-   Created by yanzexin on 16/11/8.
-doctype html
-html
-    head
-        title Main
+extends home
+append style
+    link(href="javascripts/template/iCheck/skins/minimal/minimal.css" rel='stylesheet')
+    link(href="javascripts/template/iCheck/skins/square/square.css" rel='stylesheet')
+    link(href="javascripts/template/iCheck/skins/square/red.css" rel='stylesheet')
+    link(href="javascripts/template/iCheck/skins/square/blue.css" rel='stylesheet')
 
-        link(href="javascripts/template/iCheck/skins/minimal/minimal.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/square.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/red.css" rel='stylesheet')
-        link(href="javascripts/template/iCheck/skins/square/blue.css" rel='stylesheet')
+    link(href="stylesheets/template/clndr.css" rel='stylesheet')
 
-        link(href="stylesheets/template/clndr.css" rel='stylesheet')
-
-        link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
-
-        link(href='/stylesheets/template/style.css' rel='stylesheet')
-        link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
-        link(href='/stylesheets/style.css' rel='stylesheet')
-    body
-        section
-            div.left-side.sticky-left-side
-                div.left-side-inner
-                    ul.nav.nav-pills.nav-stacked.custom-nav
-                        li
-                            a(href='/main')
-                                i.fa.fa-home
-                                span Home
-                        li
-                            a(href='')
-                                i.fa.fa-bullhorn
-                                span Notification
-                        li
-                            a(href='')
-                                i.fa.fa-th-list
-                                span Homework
-                        li.menu-list
-                            a(href='')
-                                i.fa.fa-envelope
-                                span Chat
-                            ul.sub-menu-list
-                                li
-                                    a(href='/mail_view') Mail Box
-                                li
-                                    a(href='/mail_compose') Compose Mail
-                        li
-                            a(href='/')
-                                i.fa.fa-sign-in
-                                span Log Out
-            div.main-content
-                div.header-section
-                    a.toggle-btn
-                        i.fa.fa-bars
-                    div.menu-right
-                        ul.notification-menu
-                            li
-                                a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
-                                    i.fa.fa-envelope-o
-                                div.dropdown-menu.dropdown-menu-head.pull-right
-                                    h5.title Unread Mail
-                                    ul.dropdown-list.normal-list#mail
-                            li
-                                a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
-                                    i.fa.fa-bell-o
-                                div.dropdown-menu.dropdown-menu-head.pull-right
-                                    h5.title Unread Notifications
-                                    ul.dropdown-list.normal-list#notification
-                            li
-                                a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown') #{name}
-                                    span.caret
-                                ul.dropdown-menu.dropdown-menu-usermenu.pull-right
-                                    li
-                                        a(href='')
-                                            i.fa.fa-user
-                                            label Profiles
-                                    li
-                                        a(href='')
-                                            i.fa.fa-cog
-                                            label Settings
-                                    li
-                                        a(href='/')
-                                            i.fa.fa-sign-out
-                                            label Log Out
-                div.wrapper
-                    div.row
-                        div.col-md-14
-                            dic.panel
-                                div.panel-body
-                                    div.row.revenue-states
-                                        div.col-md-6.col-sm-6.col-xs-12
-                                            h4 Scores
-                                    div.row
-                                        div.col-md-12
-                                            div#main-chart-1
-                                                div#main-chart-score.main-chart
-                    .row
-                        .col-md-3
-                            .panel.panel-primary
-                                .panel-heading
-                                    | Homework 1
-                                    span.tools.pull-right
-                                        a.fa.fa-chevron-down(href='javascript:;')
-                                .panel-body
-                                    h4(style='color: red') 未结束
-                                    h4 Score: {Score}
-                                    h4 Rank: {Rank}
-                                    a.btn.btn-success(data-toggle='modal', href='#Upload') Upload
-                                    a.btn.btn-default(data-toggle='modal', href='/user/download') Download
+    link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
+append Wrapper
+    div.wrapper
+        div.row
+            div.col-md-14
+                dic.panel
+                    div.panel-body
+                        div.row.revenue-states
+                            div.col-md-6.col-sm-6.col-xs-12
+                                h4 Scores
+                        div.row
+                            div.col-md-12
+                                div#main-chart-1
+                                    div#main-chart-score.main-chart
+        .row
+            -for (var index in HomeworkInfo)
+                .col-md-3
+                    .panel.panel-primary
+                        .panel-heading
+                            | #{HomeworkInfo[index]['state']}
+                        .panel-body
+                            -if (HomeworkInfo[index]['score'] == null)
+                                h4(style='color: red') 作业未结束
+                                -if (HomeworkInfo[index]['filePath'] != null)
+                                    h4(style='color: green') 已提交
+                                a.btn.btn-success.pull-right(data-toggle='modal', href='#Upload') Upload
+                                #Upload.modal.fade(aria-hidden='true', aria-labelledby='myModalLabel', role='dialog', tabindex='-1')
+                                    .modal-dialog
+                                        .modal-content
+                                            .modal-header
+                                                h4.modal-title Upload Homework
+                                            .modal-body
+                                                section.panel
+                                                    .panel-body
+                                                        form#file(action="/user/upload?state=#{HomeworkInfo[index]['state']}" enctype='multipart/form-data' method='POST')
+                                                            input(type='file' name='files')
+                                                            button.btn.btn-primary(type='submit') Submit
+                            - else
+                                h4 Score: #{HomeworkInfo[index]['score']}
+                                a.btn.btn-default.pull-right(href="/user/download?id=#{HomeworkInfo[index]['id']}") Download
 
 
-                    #Upload.modal.fade(aria-hidden='true', aria-labelledby='myModalLabel', role='dialog', tabindex='-1')
-                        .modal-dialog
-                            .modal-content
-                                .modal-header
-                                    h4.modal-title Upload Homework
-                                .modal-body
-                                    section.panel
-                                        .panel-body
-                                            form#file(action='/user/upload' enctype='multipart/form-data' method='POST')
-                                                input(type='file' name='files')
-                                                button.btn.btn-primary(type='submit') Submit
-                                //div.panel-body
-                                    //div.row.revenue-states
-                                    //    div.col-md-6.col-sm-6.col-xs-12
-                                    //        h4 Rank
-                                    //div.row
-                                    //    div.col-md-12
-                                    //        div#main-chart-2
-                                    //            div#main-chart-rank.main-chart
-
-                    footer 2016 @ Created By Stary.
+append Nav
     script(src='/javascripts/template/jquery-1.10.2.min.js')
     script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
     script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')

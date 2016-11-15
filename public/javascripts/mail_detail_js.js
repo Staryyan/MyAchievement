@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     var mail_detail = function () {
-        $('#content').html($('#content_help').text());
+        // $('#content').html($('#content_help').text());
         this.id = window.location.href.slice(window.location.href.indexOf('id')+3);
         $('#trash').bind('click', this.trash.bind(this));
     };

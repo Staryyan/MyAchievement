@@ -38,7 +38,7 @@ router.post('/notification', function(request, response) {
 
 router.post('/mail', function (request, response) {
   console.log('mail');
-  db.Database.query('select * from Mails where receiver = ? and hasRead = ?', [request.body.name, 0], function (err, data) {
+  db.Database.query('select * from Mails where receiver = ? and hasRead = ?', [request.cookies.user.name, 0], function (err, data) {
     if (err) console.log(err);
     else {
       response.json({mail: JSON.parse(JSON.stringify(data))});
@@ -78,24 +78,7 @@ router.post('/sendMail', function (request, response) {
       console.log(err);
       response.json({success: false});
     } else {
-      db.Database.query('select id from Mails where sender = ? and receiver = ? and subject = ? and date = ? and content = ?', [request.body.sender, request.body.receiver, request.body.subject, date.date, request.body.content], function (err, data) {
-        if (err) { console.log(err); }
-        else {
-          var id = data[0]['id'];
-          db.Database.query('select mail from Users where name = ?', [request.body.receiver], function (err, data) {
-            if (err) {console.log(err)}
-            else {
-              console.log(data[0]);
-              var mail = JSON.parse(data[0]['mail']);
-              mail.push({id: id, read: false});
-              db.Database.query('update Users set mail = ? where name = ?', [JSON.stringify(mail), request.body.receiver], function (err, data) {
-                if (err) { console.log(err) }
-                else { response.json({success: true}); }
-              })
-            }
-          });
-        }
-      });
+      response.json({success: true});
     }
   });
 });
@@ -126,48 +109,53 @@ router.post('/deleteMail', function (request, response) {
 });
 
 router.post('/upload', function (request, response) {
-  var form = new formidable.IncomingForm();
-  form._encoding = 'utf-8';
-  form.uploadDir = 'public/files/Homework1/';
-  form.keepExtensions = true;
-  form.hash = false;
-  form.maxFieldsSize = 10 * 1024 * 1024;
-  form.maxFilesize = 1;
+  fs.mkdir('public/files/' + request.query.state, function () {
+    var form = new formidable.IncomingForm();
+    form._encoding = 'utf-8';
+    form.uploadDir = 'public/files/' + request.query.state + '/';
+    form.keepExtensions = true;
+    form.hash = false;
+    form.maxFieldsSize = 10 * 1024 * 1024;
+    form.maxFilesize = 1;
 
-  form.parse(request, function (err, field, files) {
-    var fileName = files['files']['path'];
-    db.Database.query('select * from Homework1 where author = ?', [request.cookies.user.name], function (err, data) {
-      if (err) {console.log(err)}
-      else {
-        if (data.length > 0) {
-          fs.unlink(data[0]['hash']);
-          db.Database.query('update Homework1 set hash = ? where author = ?', [fileName, request.cookies.user.name], function (err, data) {
-            if (err) {console.log(err)}
-            else {
-              response.redirect('/main');
+    form.parse(request, function (err, field, files) {
+      var fileName = files['files']['path'];
+      db.Database.query('select * from Homework where studentId = ? and state = ?', [request.cookies.user.id, request.query.state], function (err, data) {
+        if (err) {console.log(err)}
+        else {
+          if (data.length > 0) {
+            if (data[0]['filePath'] != null) {
+              fs.unlink(data[0]['filePath']);
             }
-          })
-        } else {
-          db.Database.query('insert into Homework1 (author, hash) values(?,?)', [request.cookies.user.name ,fileName], function (err, data) {
-            if (err) console.log(err);
-            else {
-              response.redirect('/main');
-            }
-          });
+            db.Database.query('update Homework set filePath = ? where studentId = ? and state = ?', [fileName, request.cookies.user.id, request.query.state], function (err, data) {
+              if (err) {console.log(err)}
+              else {
+                response.redirect('/main');
+              }
+            });
+          } else {
+            db.Database.query('insert into Homework (studentId, author, filePath, state) values(?, ?, ?, ?)', [request.cookies.user.id, request.cookies.user.name, fileName, request.query.state], function (err, data) {
+              if (err) console.log(err);
+              else {
+                response.redirect('/main');
+              }
+            });
+          }
         }
-      }
+      });
     });
   });
 });
 
 router.get('/download', function (request, response) {
-  db.Database.query('select * from Homework1 where author = ?', [request.cookies.user.name], function (err, data) {
+  db.Database.query('select * from Homework where id = ?', [request.query.id], function (err, data) {
     if (err) {console.log(err)}
     else {
+      console.log(data);
       if (data.length > 0) {
-        var path = data[0]['hash'];
+        var path = data[0]['filePath'];
         var type = path.split('.');
-        response.download(path, 'Homework1 '+request.cookies.user.name + '.' + type[type.length - 1]);
+        response.download(path, data[0]['state'] + ' ' + request.cookies.user.name + '.' + type[type.length - 1]);
       }
     }
   })

@@ -21,19 +21,6 @@ $(document).ready(function () {
                 console.log(err);
             }
         });
-        $.ajax({
-            url: '/user/mail',
-            type: 'POST',
-            data: { name: $('#name').text() },
-            async: true,
-            success: function (data) {
-                that.mail = data['mail'];
-                that.load_mail();
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
     };
     
     navInfo.prototype.load_notification = function () {
@@ -46,17 +33,6 @@ $(document).ready(function () {
             $('#notification').append(list);
         }
     };
-    
-    navInfo.prototype.load_mail = function () {
-        for (var index in this.mail) {
-            var a = $('<a></a>');
-            var span = $('<span></span>').addClass('desc');
-            span.append($('<span></span>').addClass('name').text(this.mail[index]['sender']));
-            span.append($('<span></span>').addClass('msg').text(this.mail[index]['subject']));
-            a.append(span);
-            var list = $('<li></li>').addClass('new').append(a);
-            $('#mail').append(list);
-        }
-    };
+
     $(new navInfo());
 });

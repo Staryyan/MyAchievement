@@ -32,9 +32,17 @@ router.post('/login', function (req, res) {
 
 router.get('/main', function (req, res) {
   console.log('main');
-  res.render('main', {
-    name: req.cookies.user.name
-  });
+    if (req.cookies.user == undefined) {
+        res.render('index');
+    } else {
+        db.Database.query('Select * from Homework where studentId = ? Order by state', [req.cookies.user.id], function (err, data) {
+            console.log(JSON.parse(JSON.stringify(data)));
+            res.render('main', {
+                name: req.cookies.user.name,
+                HomeworkInfo: JSON.parse(JSON.stringify(data))
+            });
+        });
+    }
 });
 
 router.get('/mail_view', function (request, response) {

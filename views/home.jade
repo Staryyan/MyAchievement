@@ -1,2 +1,84 @@
 //
    Created by yanzexin on 16/11/9.
+doctype html
+html
+    head
+        title Main
+        block style
+            link(href='/stylesheets/template/style.css' rel='stylesheet')
+            link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
+            link(href='/stylesheets/style.css' rel='stylesheet')
+        body
+            block Nav
+                section
+                    div.left-side.sticky-left-side
+                        div.left-side-inner
+                            ul.nav.nav-pills.nav-stacked.custom-nav
+                                li
+                                    a(href='/main')
+                                        i.fa.fa-home
+                                        span Home
+                                li
+                                    a(href='')
+                                        i.fa.fa-bullhorn
+                                        span Notification
+                                li
+                                    a(href='')
+                                        i.fa.fa-th-list
+                                        span Homework
+                                li.menu-list
+                                    a(href='')
+                                        i.fa.fa-envelope
+                                        span Chat
+                                    ul.sub-menu-list
+                                        li
+                                            a(href='/mail_view') Mail Box
+                                        li
+                                            a(href='/mail_compose') Compose Mail
+                                li
+                                    a(href='/')
+                                        i.fa.fa-sign-in
+                                        span Log Out
+                    div.main-content(ng-app='homeApp')
+                        div.header-section
+                            a.toggle-btn
+                                i.fa.fa-bars
+                            div.menu-right
+                                ul.notification-menu(ng-controller='mailCtrl')
+                                    li
+                                        a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
+                                            i.fa.fa-envelope-o
+                                        div.dropdown-menu.dropdown-menu-head.pull-right
+                                            h5.title Unread Mail
+                                            ul.dropdown-list.normal-list(ng-repeat='each in mails')
+                                                li.new
+                                                    a
+                                                        span.desc
+                                                            span.name {{each['sender']}}
+                                                            span.msg {{each['subject']}}
+                                    li
+                                        a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
+                                            i.fa.fa-bell-o
+                                        div.dropdown-menu.dropdown-menu-head.pull-right
+                                            h5.title Unread Notifications
+                                            ul.dropdown-list.normal-list#notification
+                                    li
+                                        a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown') #{name}
+                                            span.caret
+                                        ul.dropdown-menu.dropdown-menu-usermenu.pull-right
+                                            li
+                                                a(href='')
+                                                    i.fa.fa-user
+                                                    label Profiles
+                                            li
+                                                a(href='')
+                                                    i.fa.fa-cog
+                                                    label Settings
+                                            li
+                                                a(href='/')
+                                                    i.fa.fa-sign-out
+                                                    label Log Out
+                        block Wrapper
+                        footer 2016 @ Created By Stary.
+        script(src='javascripts/Angular.js')
+        script(src='javascripts/homeNavInfo.js')

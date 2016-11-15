@@ -1,100 +1,36 @@
 //
    Created by yanzexin on 16/11/8.
-doctype html
-html
-    head
-        title Main
+extends home
+append style
+    link(href='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.css' rel='stylesheet')
+append Wrapper
+    div.wrapper
+        div.mail-box
+            section.mail-box-info
+                header.header
+                    div.compose-btn.pull-right
+                        button.btn.btn-primary.btn-sm#send
+                            i.fa.fa-check
+                            label Send
+                        button.btn.btn-sm.btn-default
+                            i.fa.fa-times
+                            label Discard
+                    div.btn-toolbar
+                        h4.pull-left Compose Mail
+                section.mail-list
+                    div.compose-mail
+                        form(role='form-horizontal' method='POST')
+                            div.form-group
+                                label(for='to') To:
+                                input#to(type='text' tabindex='1').form-control
+                            div.form-group
+                                label(for='subject') Subject:
+                                input#subject(type='text' tabindex='1').form-control
+                            label#error
+                            div.compose-editor
+                                textarea.wysihtml5.form-control(rows="9")#content
 
-        link(href='/javascripts/template/bootstrap-wysihtml5/bootstrap-wysihtml5.css' rel='stylesheet')
-        link(href='/stylesheets/template/style.css' rel='stylesheet')
-        link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
-        link(href='/stylesheets/style.css' rel='stylesheet')
-    body
-        section
-            div.left-side.sticky-left-side
-                div.left-side-inner
-                    ul.nav.nav-pills.nav-stacked.custom-nav
-                        li.active
-                            a(href='/main')
-                                i.fa.fa-home
-                                span Home
-                        li.menu-list
-                            a(href='')
-                                i.fa.fa-bullhorn
-                                span Notification
-                        li.menu-list
-                            a(href='')
-                                i.fa.fa-th-list
-                                span Homework
-                        li.menu-list
-                            a(href='')
-                                i.fa.fa-envelope
-                                span Chat
-                        li
-                            a(href='/')
-                                i.fa.fa-sign-in
-                                span Log Out
-            div.main-content
-                div.header-section
-                    a.toggle-btn
-                        i.fa.fa-bars
-                    div.menu-right
-                        ul.notification-menu
-                            li
-                                a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
-                                    i.fa.fa-envelope-o
-                                div.dropdown-menu.dropdown-menu-head.pull-right
-                                    h5.title Unread Mail
-                                    ul.dropdown-list.normal-list#mail
-                            li
-                                a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
-                                    i.fa.fa-bell-o
-                                div.dropdown-menu.dropdown-menu-head.pull-right
-                                    h5.title Unread Notifications
-                                    ul.dropdown-list.normal-list#notification
-                            li
-                                a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown') #{name}
-                                    span.caret
-                                ul.dropdown-menu.dropdown-menu-usermenu.pull-right
-                                    li
-                                        a(href='')
-                                            i.fa.fa-user
-                                            label Profiles
-                                    li
-                                        a(href='')
-                                            i.fa.fa-cog
-                                            label Settings
-                                    li
-                                        a(href='/')
-                                            i.fa.fa-sign-out
-                                            label Log Out
-                div.wrapper
-                    div.mail-box
-                        section.mail-box-info
-                            header.header
-                                div.compose-btn.pull-right
-                                    button.btn.btn-primary.btn-sm#send
-                                        i.fa.fa-check
-                                        label Send
-                                    button.btn.btn-sm.btn-default
-                                        i.fa.fa-times
-                                        label Discard
-                                div.btn-toolbar
-                                    h4.pull-left Compose Mail
-                            section.mail-list
-                                div.compose-mail
-                                    form(role='form-horizontal' method='POST')
-                                        div.form-group
-                                            label(for='to') To:
-                                            input#to(type='text' tabindex='1').form-control
-                                        div.form-group
-                                            label(for='subject') Subject:
-                                            input#subject(type='text' tabindex='1').form-control
-                                        label#error
-                                        div.compose-editor
-                                            textarea.wysihtml5.form-control(rows="9")#content
-
-                    footer 2016 @ Created By Stary.
+append Nav
     script(src='/javascripts/template/jquery-1.10.2.min.js')
     script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
     script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')
