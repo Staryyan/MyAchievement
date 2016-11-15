@@ -8,7 +8,7 @@ html
             link(href='/stylesheets/template/style.css' rel='stylesheet')
             link(href='/stylesheets/template/style-responsive.css' rel='stylesheet')
             link(href='/stylesheets/style.css' rel='stylesheet')
-        body
+        body(ng-app='homeApp')
             block Nav
                 section
                     div.left-side.sticky-left-side
@@ -19,11 +19,11 @@ html
                                         i.fa.fa-home
                                         span Home
                                 li
-                                    a(href='')
+                                    a(href='/notification')
                                         i.fa.fa-bullhorn
                                         span Notification
                                 li
-                                    a(href='')
+                                    a(href='/homework')
                                         i.fa.fa-th-list
                                         span Homework
                                 li.menu-list
@@ -39,12 +39,12 @@ html
                                     a(href='/')
                                         i.fa.fa-sign-in
                                         span Log Out
-                    div.main-content(ng-app='homeApp')
+                    div.main-content
                         div.header-section
                             a.toggle-btn
                                 i.fa.fa-bars
                             div.menu-right
-                                ul.notification-menu(ng-controller='mailCtrl')
+                                ul.notification-menu(ng-controller='notificationCtrl')
                                     li
                                         a.btn.btn-default.dropdown-toggle.info-number(href='' data-toggle='dropdown')
                                             i.fa.fa-envelope-o
@@ -61,7 +61,11 @@ html
                                             i.fa.fa-bell-o
                                         div.dropdown-menu.dropdown-menu-head.pull-right
                                             h5.title Unread Notifications
-                                            ul.dropdown-list.normal-list#notification
+                                            ul.dropdown-list.normal-list(ng-repeat='each in notifications')
+                                                li.new
+                                                    a
+                                                        span.name {{each['msg']}}
+                                                        span.msg {{each['date']}}
                                     li
                                         a.btn.btn-default.dropdown-toggle#name(href='' data-toggle='dropdown') #{name}
                                             span.caret
@@ -79,6 +83,15 @@ html
                                                     i.fa.fa-sign-out
                                                     label Log Out
                         block Wrapper
+
                         footer 2016 @ Created By Stary.
-        script(src='javascripts/Angular.js')
-        script(src='javascripts/homeNavInfo.js')
+                script(src='/javascripts/template/jquery-1.10.2.min.js')
+                script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
+                script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')
+                script(src='/javascripts/template/bootstrap.min.js')
+                script(src='/javascripts/template/modernizr.min.js')
+                script(src='/javascripts/template/jquery.nicescroll.js')
+                script(src='/javascripts/template/scripts.js')
+
+                script(src='javascripts/Angular.js')
+                script(src='javascripts/homeNavInfo.js')

@@ -1,0 +1,26 @@
+//
+   Created by yanzexin on 15/11/2016.
+   All right reserved. 8:42 PM
+
+extends home
+
+append Wrapper
+    .wrapper
+        .page-heading
+            h3
+                | Notification
+            ul.breadcrumb
+                li
+                    a(href='#') My Achievement
+                li.active  Notification
+
+        .panel-group
+        -for (var index in Notification)
+            .alert.alert-success.alert-block.fade.in
+                -if (Notification[index]['forAll'] == 0)
+                    a(type='button' data-dismiss='alert' onclick="del(#{Notification[index]['id']})").close.close-sm
+                        i.fa.fa-times
+                h4 #{Notification[index]['msg']}
+                p #{Notification[index]['date']}
+append Nav
+    script(src='javascripts/notification.js')

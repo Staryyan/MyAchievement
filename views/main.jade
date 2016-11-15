@@ -10,6 +10,13 @@ append style
     link(href='javascripts/template/morris-chart/morris.css' rel='stylesheet')
 append Wrapper
     div.wrapper
+        .page-heading
+            h3
+                | Dashboard
+            ul.breadcrumb
+                li
+                    a(href='#') My Achievement
+                li.active  Dashboard
         div.row
             div.col-md-14
                 dic.panel
@@ -50,14 +57,6 @@ append Wrapper
 
 
 append Nav
-    script(src='/javascripts/template/jquery-1.10.2.min.js')
-    script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
-    script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')
-    script(src='/javascripts/template/bootstrap.min.js')
-    script(src='/javascripts/template/modernizr.min.js')
-    script(src='/javascripts/template/jquery.nicescroll.js')
-
-
     script(src='/javascripts/template/flot-chart/jquery.flot.js')
     script(src='/javascripts/template/flot-chart/jquery.flot.tooltip.js')
     script(src='/javascripts/template/flot-chart/jquery.flot.resize.js')
@@ -65,7 +64,5 @@ append Nav
     script(src='/javascripts/template/morris-chart/raphael-min.js')
     script(src='/javascripts/template/morris-chart/morris.js')
 
-    script(src='/javascripts/template/scripts.js')
 
-    script(src='/javascripts/navInfo.js')
     script(src='/javascripts/home.js')

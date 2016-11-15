@@ -59,4 +59,24 @@ router.get('/mail_compose', function (request, response) {
     });
 });
 
+router.get('/homework', function (request, response) {
+   console.log('homework');
+    db.Database.query('select score, state, comment from Homework where studentId = ? order by state', [request.cookies.user.id], function (err, data) {
+        response.render('homework', {
+            name: request.cookies.user.name,
+            homework: JSON.parse(JSON.stringify(data))
+        });
+    });
+});
+
+router.get('/notification', function (request, response) {
+    db.Database.query('select * from Notifications where forAll = 1 or receiverId = ? order by date desc', [request.cookies.user.id], function (err, data) {
+        if (err) console.log(err);
+        else {
+            console.log(data);
+            response.render('notification', {name: request.cookies.user.name, Notification: JSON.parse(JSON.stringify(data))});
+        }
+    });
+});
+
 module.exports = router;

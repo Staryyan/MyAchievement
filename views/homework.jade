@@ -1,0 +1,29 @@
+//
+   Created by yanzexin on 15/11/2016.
+   All right reserved. 1:23 PM
+
+extends home
+append Wrapper
+    .wrapper
+        .page-heading
+            h3
+                | Homework
+            ul.breadcrumb
+                li
+                    a(href='#') My Achievement
+                li.active  Homework
+        -for (var index in homework)
+            .panel-group
+                .panel
+                    .panel-heading.dark
+                        h4.panel-title
+                            a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+                                | #{homework[index]['state']} Comment
+                    #collapseOne.panel-collapse.collapse.in
+                        .panel-body
+                            label Author: #{JSON.parse(homework[index]['comment'])['author']}
+                            br
+                            label Comment: #{JSON.parse(homework[index]['comment'])['info']}
+                            hr
+                            label Score: #{homework[index]['score']}
+

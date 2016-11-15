@@ -3,26 +3,28 @@
 extends home
 append Wrapper
     div.wrapper
+        .page-heading
+            h3
+                | Mail
+            ul.breadcrumb
+                li
+                    a(href='#') My Achievement
+                li.active  Mail
         div.mail-box
-            section.mail-box-info
+            section.mail-box-info(ng-controller='mailCtrl')
                 header.header
                     div.btn-toolbar
                         div.btn-group
                             button.btn.btn-sm.btn-primary
                                 i.fa.fa-refresh
                 section.mail-list
-                    ul.list-group#mail_list
+                    ul.list-group(ng-repeat='each in mails')
+                        li.list-group-item
+                            a(href="/user/mail_detail?id={{each['id']}}")
+                                small.pull-right.text-muted {{each['date']}}
+                                strong From {{each['sender']}}
+                                hr
+                                span {{each['subject']}}
 
 append Nav
-    script(src='/javascripts/template/jquery-1.10.2.min.js')
-    script(src='/javascripts/template/jquery-ui-1.9.2.custom.min.js')
-    script(src='/javascripts/template/jquery-migrate-1.2.1.min.js')
-    script(src='/javascripts/template/bootstrap.min.js')
-    script(src='/javascripts/template/modernizr.min.js')
-    script(src='/javascripts/template/jquery.nicescroll.js')
-
-
-    script(src='/javascripts/template/scripts.js')
-
-    script(src='/javascripts/navInfo.js')
-    script(src='/javascripts/mail_view.js')
+    script(src='javascripts/mail_view.js')

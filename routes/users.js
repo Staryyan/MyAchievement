@@ -58,6 +58,9 @@ router.post('/score', function (request, response) {
 router.get('/mail_detail', function (request, response) {
   console.log('mail_detail');
   db.Database.query('select * from Mails where id = ?', [request.query.id], function (err, data) {
+    db.Database.query('update Mails set hasRead = 1 where id = ?', [request.query.id], function (err, data) {
+      if (err) console.log(err);
+    });
     if (err) console.log(err);
     else {
       response.render('mail_detail', {
@@ -157,6 +160,34 @@ router.get('/download', function (request, response) {
         var type = path.split('.');
         response.download(path, data[0]['state'] + ' ' + request.cookies.user.name + '.' + type[type.length - 1]);
       }
+    }
+  })
+});
+
+router.post('/deleteNotification', function (request, response) {
+  db.Database.query('delete from Notifications where id = ? and receiverId = ?', [request.body.id, request.cookies.user.id], function (err, data) {
+    if (err) { console.log(err)}
+    else {
+      response.json({success: true})
+    }
+  })
+});
+
+router.post('/notification_info', function (request, response) {
+  db.Database.query('select * from Notifications where forAll = 1 or receiverId = ?', [request.cookies.user.id], function (err, data) {
+    if (err) console.log(err);
+    else {
+      response.json({notification: data});
+    }
+  })
+});
+
+router.post('/allMails', function (request, response) {
+  console.log('allMails');
+  db.Database.query('select * from Mails where receiver = ? order by date', [request.cookies.user.name], function (err, data) {
+    if (err) console.log(err);
+    else {
+      response.json({mail: JSON.parse(JSON.stringify(data))});
     }
   })
 });
