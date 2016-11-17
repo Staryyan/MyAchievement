@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="ctrl">
+        <form name="Form">
+            <input  ng-blur="onBlur()" type="text" name="inputText" required ng-trim="true" ng-model="userNum" ng-pattern="/^[0-9]*[1-9][0-9]*$/" ng-minlength="6" ng-maxlength="9" maxlength="9"/>
+            <input ng-model="content">
+            <textarea ng-model="contentes"></textarea>
+            {{contentes}}
+            <span ng-show="error" style="color: red;">Your Input wrong.</span>
+        </form>
+    </div>
+
+
+    <script src="../../public/javascripts/Angular.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>

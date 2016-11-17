@@ -158,7 +158,7 @@ router.get('/download', function (request, response) {
       if (data.length > 0) {
         var path = data[0]['filePath'];
         var type = path.split('.');
-        response.download(path, data[0]['state'] + ' ' + request.cookies.user.name + '.' + type[type.length - 1]);
+        response.download(path, data[0]['state'] + ' ' + data[0]['name'] + '.' + type[type.length - 1]);
       }
     }
   })

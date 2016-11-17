@@ -1,0 +1,49 @@
+//
+   Created by yanzexin on 16/11/2016.
+   All right reserved. 2:43 PM
+
+extends home
+append Wrapper
+    .wrapper(ng-controller='reviewCtrl' ng-init='load(#{homework.length})')
+        .page-heading
+            h3
+                | My Achievement
+            ul.breadcrumb
+                li
+                    a(href='#') My Dashboard
+                li.active  Evaluate
+        - for (var index in homework)
+            .row
+                .col-md-12
+                    section.panel
+                        header.panel-heading
+                            a(href="/user/download?id=#{homework[index]['id']}") #{homework[index]['name']}
+                            span.tools.pull-right
+                                a.fa.fa-chevron-down(href='javascript:;')
+                        .panel-body
+                            form.form-horizontal.content(method='post')
+                                .form-group
+                                    .col-md-12
+                                        textarea.form-control(ng-model='content#{index}', rows='5')
+                                .col-md-1
+                                    input.form-control(minlength=1 maxlength=3 type='numbers' onkeypress="keyPress(this.value)" placeholder='Score' ng-model='score#{index}')
+                                button.btn.btn-success(ng-click="submit(#{homework[index]['id']}, #{index})") Submit
+                                span(ng-show='true') Submit succeed!
+
+append Nav
+    script(type='text/javascript', src='javascripts/evaluate.js')
+    script.
+        function keyPress(value) {
+            var keyCode = event.keyCode;
+            if (!(value && value == 0) && (keyCode >= 48 && keyCode <= 57)) {
+                if (parseInt(value) > 10) {
+                    event.returnValue = false;
+                } else if (parseInt(value) == '10' && keyCode != 48) {
+                    event.returnValue = false;
+                } else {
+                    event.returnValue = true;
+                }
+            } else {
+                event.returnValue = false;
+            }
+        }

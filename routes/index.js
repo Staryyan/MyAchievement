@@ -16,7 +16,7 @@ router.post('/login', function (req, res) {
         if (err) console.log(err);
         if (data.toString() != '') {
           if (data[0]['password'] == req.body.password) {
-            res.cookie('user', {id: data[0]['id'], name: data[0]['name']}, { httpOnly:true});
+            res.cookie('user', {id: data[0]['id'], name: data[0]['name'], status: data[0]['status']}, { httpOnly:true});
             info['success'] = true;
           } else {
             info['success'] = false;
@@ -35,13 +35,15 @@ router.get('/main', function (req, res) {
     if (req.cookies.user == undefined) {
         res.render('index');
     } else {
-        db.Database.query('Select * from Homework where studentId = ? Order by state', [req.cookies.user.id], function (err, data) {
-            console.log(JSON.parse(JSON.stringify(data)));
-            res.render('main', {
-                name: req.cookies.user.name,
-                HomeworkInfo: JSON.parse(JSON.stringify(data))
+        // if (req.cookies.user.status == 'student') {
+            db.Database.query('Select * from Homework where studentId = ? Order by state', [req.cookies.user.id], function (err, data) {
+                console.log(JSON.parse(JSON.stringify(data)));
+                res.render('main', {
+                    name: req.cookies.user.name,
+                    status: req.cookies.user.status,
+                    HomeworkInfo: JSON.parse(JSON.stringify(data))
+                });
             });
-        });
     }
 });
 
@@ -77,6 +79,19 @@ router.get('/notification', function (request, response) {
             response.render('notification', {name: request.cookies.user.name, Notification: JSON.parse(JSON.stringify(data))});
         }
     });
+});
+
+router.get('/evaluate', function (request, response) {
+   db.Database.query('select * from Homework', function (err, data) {
+       if (err) console.log(err);
+       else {
+           response.render('evaluate', {
+               name: request.cookies.user.name,
+               status: request.cookies.user.status,
+               homework: JSON.parse(JSON.stringify(data))
+           });
+       }
+   });
 });
 
 module.exports = router;

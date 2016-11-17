@@ -22,10 +22,16 @@ html
                                     a(href='/notification')
                                         i.fa.fa-bullhorn
                                         span Notification
-                                li
-                                    a(href='/homework')
-                                        i.fa.fa-th-list
-                                        span Homework
+                                -if (status == 'student')
+                                    li
+                                        a(href='/homework')
+                                            i.fa.fa-th-list
+                                            span Homework
+                                -if (status == 'TA')
+                                    li
+                                        a(href='/evaluate')
+                                            i.fa.fa-cogs
+                                            span Evaluate
                                 li.menu-list
                                     a(href='')
                                         i.fa.fa-envelope
